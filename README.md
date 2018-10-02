@@ -16,7 +16,7 @@ We will only touch the surface of command line work today, because that's not th
 To begin, open the Application called `terminal`. It will launch a command-line window, which will be our virtual "laboratory" for the day.
 
 When you are working on the command line, you are always working "inside" a folder (called "directories" by most computer scientists) or location on the hard drive. By default, you start out in your "Home" directory. Open a new Finder window, and navigate to your Home folder. Note what folders/files are in there. Now, go to the terminal and type the following command, then press Return:
-```
+```shell
 ls -l
 ```
 When typing commands on the terminal, if you make a mistake it will usually cause an error; but, *there is no undo on the command line*, so you also want to be careful when typing. That said, I want you to type the commands, not copy and paste, because you will learn better by doing.
@@ -52,10 +52,11 @@ echo "Hello, friends!"
 # echo "Hello, friends!"
 ```
 
-
+---
 ### Download the raw data
 Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s). Use the finder to move the data directory into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
 
+---
 #### Raw sequencing data: the FASTQ
 Next generation DNA sequencing produces files in a common format called FASTQ. It is similar to the FASTA files we looked at last week, but each sequence consumes 4 total lines, not 2. But, like FASTA files they are just plain text files so we can read them easily on the command line or with TextEdit. To peek at the first 10 lines of a text file, use the `head` command (to look at the _head_ of the document... there is also `tail` and I bet you can guess what that does...).
 ```
@@ -70,7 +71,7 @@ The first line is the identifying information. The second line is the raw sequen
 
 Ok, back to the data. So, if you've figured out what the fourth line indicates, and knowing that this is totally raw data, can you predict what the first thing we have to do is?... 
 
-
+---
 ### Downloading the software
 For the first step, we'll need to download an open-source bioinformatics "tool" (aka software). Almost all of the software used in academic research for microbiome work is open-source. What does this mean, beyond that it costs nothing to use? Hint: there are advantages and disadvantages.
 
@@ -89,7 +90,7 @@ python shi7/shi7.py -h
 ```
 Let's unpack that. Like many bioinformatics tools, the software is written in the programming language Python (which you might remember if you've taken the intro CS course here). To tell the computer to interpret the program using Python, we start the command with the name `python` then a space, then the name of the program `shi7.py`, which is located within the directory `shi7` (the forward slash `/` separates directories on the command line. For example: `Desktop/My_Homework_Folder/Microbiology_folder/This_Class_Rocks.docx`).
 
-
+---
 ### Run that SHI7
 As you can see, there are a lot of ways to customize this software. Let's start by running with the default settings (chosen to work for _most_ people's cases). We just need to tell the command where the raw data is with the `-i` argument (for "input") and where to put the results with `-o` (for "output"). We also need to add `-SE` because this data happens a type called _single end_ (hence, SE).
 ```
@@ -97,6 +98,7 @@ python shi7/shi7.py -i data_final -o shi7_result_default -SE
 # You can give the output any name, and it will make a directory with that name for the results
 ```
 > Diving deeper: What are "paired end" DNA reads, vs "single end" DNA reads? What is a potential advantage of paired reads?
+
 Take a look at the resulting output file. Remember the `head` command? Use it to peek at the output file, which should be located at this file location: `shi7_result_default/combined_seqs.fna`. What does this look like? What format is this? What's different about this and the FASTQ?
 
 
@@ -107,6 +109,7 @@ So, how many reads are in your file? Every read/sequence could be a different ba
 
 
 Take another look at the shi7 help screen and see if you can determine what argument you could add to the shi7.py command above to change the quality threshold while trimming back the ends of the reads. The scale is 0-42 (low to high quality). What's the default? Remember to add a single space around the argument "flag" (the part starting with a hyphen) to separate it from the previous arguments and the number that you choose for a new quality threshold. Try a range higher and lower than the default, then count the number of sequences in the resulting file. 
+
 >NOTE: you also need to change the output directory name from `shi7_result_default` to something else, perhaps `shi7_result_X` where `X` is the new score you've picked. That way you can compare results; otherwise it will overwrite your old results.
 
 
@@ -115,7 +118,7 @@ What happens to the number of sequences when you change the quality threshold? W
 
 Great work! You have just run quality control on next generation sequencing data from the human microbiome.
 
-
+---
 ### Assigning names to those sequences
 We now find ourselves at a similar point as we were at the beginning of last week's lab. We have DNA sequences (16S rDNA again), and we want to know _who_ is there. But now we have some problems: shorter sequences, and an unknown number of species per sample (whereas last week we had lab colony-purified isolates!). What do we need? You guessed. More open-source bioinformatics software. Again, there are many many options, and there are even many approaches and theory for completing this step. We're going to use one called **NINJA-OPS**, partly because it has a cool name, but also because it can actually run on this iMac or your laptop. It doesn't do as much as some of the other software tools, but most of those only run on big computing servers.
 
@@ -131,9 +134,11 @@ To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where
 python NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
 When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 1`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
+
 > Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
 The output data is in a format called BIOM, for "biological observation	matrix". This is the format that we need to use our next tool.
 
+---
 ### Behold, QIIME
 Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA, and has already been installed on each of the computers.
 > Diving deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
