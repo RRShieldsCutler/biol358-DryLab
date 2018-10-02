@@ -77,7 +77,7 @@ Ok, back to the data. So, if you've figured out what the fourth line indicates, 
 For the first step, we'll need to download an open-source bioinformatics "tool" (aka software). Almost all of the software used in academic research for microbiome work is open-source. What does this mean, beyond that it costs nothing to use? Hint: there are advantages and disadvantages.
 
 
-There are many ways to complete this task, but the software we'll be using is called **SHI7** and is pronounced "shi-ZEN". Like many open-source tools, it is hosted on the community site GitHub: <https://github.com/knights-lab/shi7>. Download the most recent MacOSX version by clicking on the "releases" link near the top of the page. Hold *control* and click on the shi7_0.9.9_mac_release.zip link: "save link as" or "download link as" into "Documents > biol358_F18", where we are working. Using the finder, double-click to unzip, then delete the zip file. You should now have a directory called "shi7_0.9.9_mac_release", and inside of it a number of files and directories.
+There are many ways to complete this task, but the software we'll be using is called **SHI7** and is pronounced "shi-ZEN". Like many open-source tools, it is hosted on the community site GitHub: <https://github.com/knights-lab/shi7>. Download the most recent MacOSX version by clicking on the "releases" link near the top of the page. Hold *control* and click on the shi7_0.9.9_mac_release.zip link: "save link as" or "download link as" into "Documents", where we are working. Using the finder, double-click to unzip, then delete the zip file. You should now have a directory called "shi7_0.9.9_mac_release", and inside of it a number of files and directories.
 
 
 To make it something the computer can run, enter this command:
