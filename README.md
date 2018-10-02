@@ -16,7 +16,7 @@ We will only touch the surface of command line work today, because that's not th
 To begin, open the Application called `terminal`. It will launch a command-line window, which will be our virtual "laboratory" for the day.
 
 When you are working on the command line, you are always working "inside" a folder (called "directories" by most computer scientists) or location on the hard drive. By default, you start out in your "Home" directory. Open a new Finder window, and navigate to your Home folder. Note what folders/files are in there. Now, go to the terminal and type the following command, then press Return:
-```shell
+```
 ls -l
 ```
 When typing commands on the terminal, if you make a mistake it will usually cause an error; but, *there is no undo on the command line*, so you also want to be careful when typing. That said, I want you to type the commands, not copy and paste, because you will learn better by doing.
@@ -38,14 +38,14 @@ This only works if Desktop is located in our current directory. Let's move into 
 
 
 One other trick you can learn here is called **tab completion**. In the following command, type `cd Docu` and then press tab; see what happens.
-```
+```bash
 cd Doc[press tab]
 # Should become...
 cd Documents
 ```
 
 Neat, huh?! I also used something just now called a *comment* character. The pound sign `#` tells the computer to _ignore anything that comes after it on that line_ while processing any commands. People use it to add explanations or notes to code, like I just did, or to temporarily "blind" the computer to a command or series of commands. Try the following commands:
-```
+```shell
 echo "Hello, friends!"
 # the echo command makes the computer print out whatever you feed it within quotes, as above
 # now try the same echo command after a comment:
