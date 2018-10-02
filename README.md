@@ -132,9 +132,15 @@ When it's done, you can also see how much more efficient the computation is when
 The output data is in a format called BIOM, for "biological observation	matrix". This is the format that we need to use our next tool.
 
 ### Behold, QIIME
-Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. The paper introducing QIIME has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. QIIME is a _much_ larger piece of software than SHI7 or NINJA. QIIME1 has already been installed on each of the computers.
+Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA, and has already been installed on each of the computers.
+> Digging deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
+QIIME contains many commands. Some will run other programs on your data (this is called a "wrapper", because QIIME is wrapping up the other program inside its command). Some are designed to run ecological algorithms about diversity. Some are designed to help visualize and make sense of these large datasets. We'll focus on the last two.
 
 
+To activate the QIIME environment on the computer, enter the following command: `source activate qiime1`. You should now have a little `(qiime1)` indicator to the left of your active terminal line. You can now type Qiime commands and use tab completion on Qiime commands without typing Python first.
+
+
+Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command gives us 
 
 
 
