@@ -16,14 +16,14 @@ We will only touch the surface of command line work today, because that's not th
 To begin, open the Application called `terminal`. It will launch a command-line window, which will be our virtual "laboratory" for the day.
 
 When you are working on the command line, you are always working "inside" a folder (called "directories" by most computer scientists) or location on the hard drive. By default, you start out in your "Home" directory. Open a new Finder window, and navigate to your Home folder. Note what folders/files are in there. Now, go to the terminal and type the following command, then press Return:
-```
+```sh
 ls -l
 ```
 When typing commands on the terminal, if you make a mistake it will usually cause an error; but, *there is no undo on the command line*, so you also want to be careful when typing. That said, I want you to type the commands, not copy and paste, because you will learn better by doing.
 
 
 In the above example, the *command* was `ls` which tells the computer to list the contents of your current location. We also added an *argument*, `-l`, which modifies or provides additional instruction to the command. Note that arguments are separated from the command by a *single* space (first hint why spaces in file names and folders can cause problems on the command line!). In this case, the argument `-l` tells the list command to output the "long format" with additional details about the contents. Try running it without the argument.
-```
+```sh
 ls
 ```
 
@@ -31,21 +31,21 @@ Nice. Sometimes the bit with the hyphen and letter, e.g. `-l`, is called a "flag
 > Diving Deeper: To access the "user manual" for any built-in command, type `man [command]` e.g. `man ls`.
 
 Most commands act on a directory or file. The directory/file can be specified by including it after the argument, again separated by a single space:
-```
+```sh
 ls -l Desktop
 ```
 This only works if Desktop is located in our current directory. Let's move into another directory so we can start to get to work. The command to move directories is `cd`, or "change directory" (this is analogous to double clicking on a folder in the finder window).
 
 
 One other trick you can learn here is called **tab completion**. In the following command, type `cd Docu` and then press tab; see what happens.
-```bash
+```sh
 cd Doc[press tab]
 # Should become...
 cd Documents
 ```
 
 Neat, huh?! I also used something just now called a *comment* character. The pound sign `#` tells the computer to _ignore anything that comes after it on that line_ while processing any commands. People use it to add explanations or notes to code, like I just did, or to temporarily "blind" the computer to a command or series of commands. Try the following commands:
-```shell
+```sh
 echo "Hello, friends!"
 # the echo command makes the computer print out whatever you feed it within quotes, as above
 # now try the same echo command after a comment:
@@ -59,7 +59,7 @@ Download the data we'll be playing with today from Google Drive [here](https://d
 ---
 #### Raw sequencing data: the FASTQ
 Next generation DNA sequencing produces files in a common format called FASTQ. It is similar to the FASTA files we looked at last week, but each sequence consumes 4 total lines, not 2. But, like FASTA files they are just plain text files so we can read them easily on the command line or with TextEdit. To peek at the first 10 lines of a text file, use the `head` command (to look at the _head_ of the document... there is also `tail` and I bet you can guess what that does...).
-```
+```sh
 # Note that the file follows the command after one space
 head data/***.fastq
 ```
@@ -85,7 +85,7 @@ If you didn't find it before, that last line of the FASTQ is a code, similar to 
 
 You got it! Like a chef preparing some homegrown organic produce, you sometimes just have to cut off the bruises and soggy bits to get the best product. This is the purpose of SHI7. For most open-source packages, you can get an explanation of the various commands and options by using the "help" argument, almost universally coded as `-h`.
 
-```
+```sh
 python shi7/shi7.py -h
 ```
 Let's unpack that. Like many bioinformatics tools, the software is written in the programming language Python (which you might remember if you've taken the intro CS course here). To tell the computer to interpret the program using Python, we start the command with the name `python` then a space, then the name of the program `shi7.py`, which is located within the directory `shi7` (the forward slash `/` separates directories on the command line. For example: `Desktop/My_Homework_Folder/Microbiology_folder/This_Class_Rocks.docx`).
@@ -93,7 +93,7 @@ Let's unpack that. Like many bioinformatics tools, the software is written in th
 ---
 ### Run that SHI7
 As you can see, there are a lot of ways to customize this software. Let's start by running with the default settings (chosen to work for _most_ people's cases). We just need to tell the command where the raw data is with the `-i` argument (for "input") and where to put the results with `-o` (for "output"). We also need to add `-SE` because this data happens a type called _single end_ (hence, SE).
-```
+```sh
 python shi7/shi7.py -i data_final -o shi7_result_default -SE
 # You can give the output any name, and it will make a directory with that name for the results
 ```
@@ -126,11 +126,11 @@ We now find ourselves at a similar point as we were at the beginning of last wee
 Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing), and put the folder into the same place as the data_final and SHI7 (Documents, unless you moved). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Read the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
 > NINJA-OPS actually stands for "Ninja Is Not Just Another OTU-picking Solution".
 Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
-```
+```sh
 python NINJA-OPS/bin/ninja.py -h
 ```
 To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where to put the results (`-o`), and then any other modifications to the defaults that we need. Here, we are just going to use the flag `-z` to tell it to search against both strands of the DNA in the database, and `-d 2` to tell it to ignore any sequences that just occur once, since that's probably just noise or background error in the sequences (a species that only shows up once in the entire dataset won't have enough statistics to mean anything, regardless).
-```
+```sh
 python NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
 When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 1`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
@@ -149,7 +149,7 @@ To activate the QIIME environment on the computer, enter the following command: 
 
 
 Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command will take our output file from NINJA and generate several data outputs:
-```
+```sh
 summarize_taxa_through_plots.py -i ninja_results/ninja_otutable.biom -o taxa_summary
 ```
 This may run for a minute or so. When it's done, go to the Finder and look at the files generated. What do each of the tables represent (labeled L2, L3, L4, etc)? Open the taxa_summary_plots directory and open the file "bar_charts.html" using a web browser. What do these represent? Hover over the bars with your mouse. What distinguishes the different graphs as you scroll down?
@@ -159,7 +159,7 @@ Do you notice that there seem to be some patterns, that some samples seem more a
 
 
 What if I told you that these were all human microbiomes, but they weren't all from the same place. Remember, you can use the `-h` flag with the command to learn more about the options (`summarize_taxa_through_plots.py -h`). Add a few arguments as shown below to group the samples by a common variable.
-```
+```sh
 summarize_taxa_through_plots.py -i ninja_results/ninja_otutable.biom -o taxa_summary_site -m data_final/hmp_metadata_biol358.txt -c BodySite
 ```
 Find the new results folder in the Finder and open the bar charts HTML file for this result. What do you see?
@@ -172,7 +172,7 @@ Remember that the "E" in QIIME stands for Ecology. We are looking at complex pop
 
 
 To answer #1, we will measure the _alpha diversity_ of a given sample. What is alpha diversity? Why is this potentially valuable information? What would typical ecological theory suggest about a healthy ecosystem? The alpha diversity command in Qiime contains a few arguments to make it run appropriately. If you run the help command, you can learn more about what each one denotes:
-```
+```sh
 alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 570 -n 5 -a -O 4 --min_rare_depth 50
 ```
 This will take a little while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females). Write out at least 3 hypotheses in a Word document.
@@ -182,7 +182,7 @@ Once the alpha rarefaction is done, look at the results in the Finder. Open some
 
 
 The nice feature about alpha diversity is that it yields a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site Phylogenetic diversity (PD_whole_tree):
-```
+```sh
 compare_alpha_diversity.py -i alpha_rare/alpha_div_collated/PD_whole_tree.txt -m data_final/hmp_metadata_biol358.txt -o alphatest_PD -c BodySite -p fdr
 ```
 
@@ -193,7 +193,7 @@ To answer #2, and any of your hypotheses surrounding the similarity between site
 
 
 The command to run beta diversity analyses on our data looks similar to the alpha diversity command, but takes much less time.
-```
+```sh
 beta_diversity_through_plots.py -i ninja_results/ninja_otutable.biom -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -o beta_diversity_result -e 570
 ```
 Open the results directory in the Finder window. You should see two types of measures: weighted unifrac and unweighted unifrac. What is the difference between these? What do they measure?
