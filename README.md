@@ -124,8 +124,9 @@ We now find ourselves at a similar point as we were at the beginning of last wee
 
 
 Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing), and put the folder into the same place as the data_final and SHI7 (Documents, unless you moved). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Read the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
-> NINJA-OPS actually stands for "Ninja Is Not Just Another OTU-picking Solution".
-Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
+
+
+NINJA-OPS actually stands for "Ninja Is Not Just Another OTU-picking Solution". Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
 ```sh
 python NINJA-OPS/bin/ninja.py -h
 ```
