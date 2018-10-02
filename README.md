@@ -145,6 +145,7 @@ The output data is in a format called BIOM, for "biological observation	matrix".
 ### Behold, QIIME
 Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA, and has already been installed on each of the computers.
 > Diving deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
+
 QIIME contains many commands. Some will run other programs on your data (this is called a "wrapper", because QIIME is wrapping up the other program inside its command). Some are designed to run ecological algorithms about diversity. Some are designed to help visualize and make sense of these large datasets. We'll focus on the last two.
 
 
