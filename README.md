@@ -1,7 +1,7 @@
 # BIOL358: Microbiology, Fall 2018
-### Introduction to Microbiome data lab
+## Introduction to Microbiome data lab
 ### October 2, 2018
-
+---
 
 ## Getting started
 Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have probably never (or rarely) done. It is not as scary as it seems. At some point, you had never heard of, seen, or touched a pipet. Or a microscope. Maybe you have started to learn a second (or third) language. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all big computing servers that are necessary for "big data" work are *only* accessible through a command line!
@@ -29,6 +29,7 @@ ls
 
 Nice. Sometimes the bit with the hyphen and letter, e.g. `-l`, is called a "flag".
 > Diving Deeper: To access the "user manual" for any built-in command, type `man [command]` e.g. `man ls`.
+
 Most commands act on a directory or file. The directory/file can be specified by including it after the argument, again separated by a single space:
 ```
 ls -l Desktop
