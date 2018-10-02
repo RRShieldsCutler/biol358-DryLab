@@ -164,12 +164,18 @@ Remember that the "E" in QIIME stands for Ecology. We are looking at complex pop
 
 To answer #1, we will measure the _alpha diversity_ of a given sample. What is alpha diversity? Why is this potentially valuable information? What would typical ecological theory suggest about a healthy ecosystem? The alpha diversity command in Qiime contains a few arguments to make it run appropriately. If you run the help command, you can learn more about what each one denotes:
 ```
-alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 600 -n 20
+alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 600 -n 20 -a -o 8
 ```
-This will take a while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females)
+This will take a while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females). Write out at least 3 hypotheses in a Word document.
 
 
 Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the subsampling, or the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
+
+
+The nice feature about alpha diversity is that it yields a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site diversity:
+```
+compare_alpha_diversity.py -i alpha_rare/alpha_div_collated/**** -m data_final/hmp_metadata_biol358.txt -o alpha_comparison -c BodySite -p 'fdr'
+```
 
 
 To answer #2, and any of your hypotheses surrounding the similarity between sites, we will measure the beta diversity of these samples. What is beta diversity? How does it compare to alpha diversity?
@@ -182,16 +188,20 @@ beta_diversity_through_plots.py -i ninja_results/ninja_otutable.biom -t data_fin
 Open the results directory in the Finder window. You should see two types of measures: weighted unifrac and unweighted unifrac. What is the difference between these? What do they measure?
 
 
-Open the folders ending in "emperor_pcoa_plot" and open the `index.html` files in a web browser. What you are viewing now is a Principal Components Analysis (PCoA) plot of the beta diversity. You should read into what a PCoA is showing, but in essence: in 3D space, samples closer to one another are more similar by microbiome composition that those further apart. Play around with the interactive viewer to help get the hang of this data presentation and to test your hypotheses. The "colors" tab will allow you to assign colors to the variables such as body site and individuals' sex. Write down your observations, especially with regard to your hypotheses.
+Open the folders ending in "emperor_pcoa_plot" and open the `index.html` files in a web browser. What you are viewing now is a Principal Components Analysis (PCoA) plot of the beta diversity. You should read into what a PCoA is showing, but in essence: in 3D space, samples closer to one another are more similar by microbiome composition that those further apart. The algorithms determine the ecological distance from each sample to every other sample, which results in a big matrix of distances. The PCoA is a convenient way to visualize this dense information. Play around with the interactive viewer to help get the hang of this data presentation and to test your hypotheses. The "colors" tab will allow you to assign colors to the variables such as body site and individuals' sex. Write down your observations, especially with regard to your hypotheses. Beta diversity measures are a little harder to compare statistically, but I am happy to talk over some of these approaches with groups if you are curious.
 
 
+Save or take screen shots of the figures that help you test your hypotheses, or anything else you found interesting. Insert these into the Word document report and summarize your findings. Upload this report to Moodle in the appropriate section before Friday.
 
 
+### Stepping back
+The analyses you've just performed make up the core techniques of any microbiome study. There are many directions from here, and variations on the diversity tests and/or ways of comparing or visualizing the results. But taxa summary plots and alpha and beta diversity comparisons are integral to the analysis in nearly every microbiome study. I hope also that by going through these steps you also appreciate the many stages where variability and the preferences of the researcher can affect the results. Quality filtering, choice of the database and OTU tool (GreenGenes and NINJA here, but there are many options), thresholds for including data in the diversity analyses, etc. The field is young and there are few "standard operating protocols" beyond what a particular lab does. Programs like Qiime try to make some elements standardized, but it has its limitations too.
 
-> Diving deeper: 
+
+### If time remains:
+Now that you have the hang of these core analyses, you have the tools to test whether those changes we made in the quality filtering step above actually make a difference in the final biological interpretations. Go back through the NINJA and Qiime commands using one of the higher and one of the lower threshold SHI7 output results (for the higher threshold, make sure there are actually sequences -- if you set it too high, nothing will pass the filter cutoff...). Be careful to change your output names (so you don't overwrite previous data) and the input names (to make sure you are using the right data at each step). Compare the taxa summaries and beta diversity. What do you see? How much impact does the quality level have on the downstream results, as you have performed it? Take screen shots and add this analysis to your Word document summary. Upload this report to Moodle in the appropriate section.
 
 
-> Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
+## Clean up
+Because you are logged in with your username, you can leave all the data and installed files where they are. To exit the Qiime environment, you can type `source deactivate`. Or, you can just close the terminal. No harm done as long as it is not currently running a command. Log out and lower the computer back into the desk. Thank you!
 
-How much does the quality filtering affect the final tables?
-Come up with a hypothesis about the relative diversity of the sites/sexes? Is it correct?
