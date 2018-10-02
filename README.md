@@ -134,9 +134,10 @@ To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where
 ```sh
 python NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
-When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 1`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
+When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 2`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
 
 > Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
+
 The output data is in a format called BIOM, for "biological observation	matrix". This is the format that we need to use our next tool.
 
 ---
@@ -149,7 +150,19 @@ QIIME contains many commands. Some will run other programs on your data (this is
 To activate the QIIME environment on the computer, enter the following command: `source activate qiime1`. You should now have a little `(qiime1)` indicator to the left of your active terminal line. You can now type Qiime commands and use tab completion on Qiime commands without typing Python first.
 
 
-Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command will take our output file from NINJA and generate several data outputs:
+Ok! Are you ready to visualize your data?
+
+
+First, let's see what NINJA did with our FASTA sequences. This command will convert that BIOM format into a table that you can open with Excel:
+```sh
+biom convert -i ninja_results/ninja_otutable.biom -o ninja_otu_table.txt --to-tsv
+```
+
+
+Go to the Finder window, and you should see this new file, "ninja_otu_table.txt". Control click, go to "Open With" and choose Microsoft Excel. NINJA took all those sequences and found the entried in the database that best match the sequence (there's some deeper algorithm stuff going on, but that's the essence). Now you have a table with the microbiome samples as columns, and each row is an OTU (numeric code, no names yet). The numbers in the table are the _counts_ or _hits_ to that OTU in each sample. What do you notice about the table? Is it full of numbers? What does it mean about the communities in these people's samples?
+
+
+Ok, time for pictures. We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command will take our output file from NINJA and generate several data outputs:
 ```sh
 summarize_taxa_through_plots.py -i ninja_results/ninja_otutable.biom -o taxa_summary
 ```
