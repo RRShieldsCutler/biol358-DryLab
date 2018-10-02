@@ -8,7 +8,7 @@
 Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have probably never (or rarely) done. It is not as scary as it seems. At some point, you had never heard of, seen, or touched a pipet. Or a microscope. Maybe you have started to learn a second (or third) language. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all big computing servers that are necessary for "big data" work are *only* accessible through a command line!
 
 
-You should keep some running notes in a notebook, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide.
+You should keep some running notes in a notebook, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide. There is also a report sheet with several short questions to answer during/at the end of the activity. It can be found on Moodle in the lab section as the Microbiome Lab Assignment.
 
 
 We will only touch the surface of command line work today, because that's not the main objective of the lab. But you can practice any of these things on your own computers, and if this isn't new to you, please help your neighbors who may be learning this for the first time.
@@ -190,7 +190,7 @@ To answer #1, we will measure the _alpha diversity_ of a given sample. What is a
 ```sh
 alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 570 -n 5 -a -O 4 --min_rare_depth 50
 ```
-This will take a little while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females). Write out at least 3 hypotheses in a Word document.
+This will take a little while to run. In the meantime, generate some hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females).
 
 
 Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the subsampling, or the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
@@ -217,7 +217,7 @@ Open the results directory in the Finder window. You should see two types of mea
 Open the folders ending in "emperor_pcoa_plot" and open the `index.html` files in a web browser. What you are viewing now is a Principal Components Analysis (PCoA) plot of the beta diversity. You should read into what a PCoA is showing, but in essence: in 3D space, samples closer to one another are more similar by microbiome composition that those further apart. The algorithms determine the ecological distance from each sample to every other sample, which results in a big matrix of distances. The PCoA is a convenient way to visualize this dense information. Play around with the interactive viewer to help get the hang of this data presentation and to test your hypotheses. The "colors" tab will allow you to assign colors to the variables such as body site and individuals' sex. Write down your observations, especially with regard to your hypotheses. Beta diversity measures are a little harder to compare statistically, but I am happy to talk over some of these approaches with groups if you are curious.
 
 
-Save or take screen shots of the figures that help you test your hypotheses, or anything else you found interesting. Insert these into the Word document report and summarize your findings. Upload this report to Moodle in the appropriate section before Friday.
+Save or take screen shots of the figures that help you test your hypotheses, or anything else you found interesting. Use these to answer the questions in the report document (Question 4). Upload this report to Moodle in the appropriate section before Friday.
 
 
 ### Stepping back
@@ -225,7 +225,7 @@ The analyses you've just performed make up the core techniques of any microbiome
 
 
 ### If time remains:
-Now that you have the hang of these core analyses, you have the tools to test whether those changes we made in the quality filtering step above actually make a difference in the final biological interpretations. Go back through the NINJA and Qiime commands using one of the higher and one of the lower threshold SHI7 output results (for the higher threshold, make sure there are actually sequences -- if you set it too high, nothing will pass the filter cutoff...). Be careful to change your output names (so you don't overwrite previous data) and the input names (to make sure you are using the right data at each step). Compare the taxa summaries and beta diversity. What do you see? How much impact does the quality level have on the downstream results, as you have performed it? Take screen shots and add this analysis to your Word document summary. Upload this report to Moodle in the appropriate section.
+Now that you have the hang of these core analyses, you have the tools to test whether those changes we made in the quality filtering step above actually make a difference in the final biological interpretations. Go back through the NINJA and Qiime commands using one of the higher and one of the lower threshold SHI7 output results (for the higher threshold, make sure there are actually sequences -- if you set it too high, nothing will pass the filter cutoff...). Be careful to change your output names (so you don't overwrite previous data) and the input names (to make sure you are using the right data at each step). Compare the taxa summaries and beta diversity. What do you see? How much impact does the quality level have on the downstream results, as you have performed it? Take screen shots and add this analysis to your Word document report for an extra 3 points.
 
 
 ## Clean up
