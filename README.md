@@ -1,5 +1,6 @@
 # BIOL358: Microbiology, Fall 2018
 ## Introduction to Microbiome data lab
+### [View as webpage](https://rrshieldscutler.github.io/biol358-Fall2018/)
 ### October 2, 2018
 ---
 
