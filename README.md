@@ -127,8 +127,7 @@ To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where
 python NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
 When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 1`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
-
-
+> Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
 The output data is in a format called BIOM, for "biological observation	matrix". This is the format that we need to use our next tool.
 
 ### Behold, QIIME
@@ -140,7 +139,52 @@ QIIME contains many commands. Some will run other programs on your data (this is
 To activate the QIIME environment on the computer, enter the following command: `source activate qiime1`. You should now have a little `(qiime1)` indicator to the left of your active terminal line. You can now type Qiime commands and use tab completion on Qiime commands without typing Python first.
 
 
-Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command gives us 
+Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command will take our output file from NINJA and generate several data outputs:
+```
+summarize_taxa_through_plots.py -i ninja_results/ninja_otutable.biom -o taxa_summary
+```
+This may run for a minute or so. When it's done, go to the Finder and look at the files generated. What do each of the tables represent (labeled L2, L3, L4, etc)? Open the taxa_summary_plots directory and open the file "bar_charts.html" using a web browser. What do these represent? Hover over the bars with your mouse. What distinguishes the different graphs as you scroll down?
+
+
+Do you notice that there seem to be some patterns, that some samples seem more alike than others? Why do you think that might be?
+
+
+What if I told you that these were all human microbiomes, but they weren't all from the same place. Remember, you can use the `-h` flag with the command to learn more about the options (`summarize_taxa_through_plots.py -h`). Add a few arguments as shown below to group the samples by a common variable.
+```
+summarize_taxa_through_plots.py -i ninja_results/ninja_otutable.biom -o taxa_summary_site -m data_final/hmp_metadata_biol358.txt -c BodySite
+```
+Find the new results folder in the Finder and open the bar charts HTML file for this result. What do you see?
+
+
+### Measuring and plotting microbial ecological diversity
+Remember that the "E" in QIIME stands for Ecology. We are looking at complex populations of microorganisms that are surprisingly variable from person to person and can change within a person from day to day depending on countless factors. We want a way to compare communities based on their ecological diversity. With this we want to ask two major questions:
+1. How diverse is a given sample?
+2. How similar are two samples to one another, based on their microbiome profiles?
+
+
+To answer #1, we will measure the _alpha diversity_ of a given sample. What is alpha diversity? Why is this potentially valuable information? What would typical ecological theory suggest about a healthy ecosystem? The alpha diversity command in Qiime contains a few arguments to make it run appropriately. If you run the help command, you can learn more about what each one denotes:
+```
+alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 600 -n 20
+```
+This will take a while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females)
+
+
+Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the subsampling, or the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
+
+
+To answer #2, and any of your hypotheses surrounding the similarity between sites, we will measure the beta diversity of these samples. What is beta diversity? How does it compare to alpha diversity?
+
+
+The command to run beta diversity analyses on our data looks similar to the alpha diversity command, but takes much less time.
+```
+beta_diversity_through_plots.py -i ninja_results/ninja_otutable.biom -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -o beta_diversity_result -e 570
+```
+Open the results directory in the Finder window. You should see two types of measures: weighted unifrac and unweighted unifrac. What is the difference between these? What do they measure?
+
+
+Open the folders ending in "emperor_pcoa_plot" and open the `index.html` files in a web browser. What you are viewing now is a Principal Components Analysis (PCoA) plot of the beta diversity. You should read into what a PCoA is showing, but in essence: in 3D space, samples closer to one another are more similar by microbiome composition that those further apart. Play around with the interactive viewer to help get the hang of this data presentation and to test your hypotheses. The "colors" tab will allow you to assign colors to the variables such as body site and individuals' sex. Write down your observations, especially with regard to your hypotheses.
+
+
 
 
 
@@ -150,4 +194,4 @@ Ok! Are you ready to visualize your data? We can use Qiime to make stacked bar p
 > Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
 
 How much does the quality filtering affect the final tables?
-
+Come up with a hypothesis about the relative diversity of the sites/sexes? Is it correct?
