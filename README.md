@@ -7,6 +7,9 @@
 Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have probably never (or rarely) done. It is not as scary as it seems. At some point, you had never heard of, seen, or touched a pipet. Or a microscope. Maybe you have started to learn a second (or third) language. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all big computing servers that are necessary for "big data" work are *only* accessible through a command line!
 
 
+You should keep some running notes in a notebook, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide.
+
+
 We will only touch the surface of command line work today, because that's not the main objective of the lab. But you can practice any of these things on your own computers, and if this isn't new to you, please help your neighbors who may be learning this for the first time.
 
 
@@ -132,7 +135,7 @@ The output data is in a format called BIOM, for "biological observation	matrix".
 
 ### Behold, QIIME
 Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA, and has already been installed on each of the computers.
-> Digging deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
+> Diving deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
 QIIME contains many commands. Some will run other programs on your data (this is called a "wrapper", because QIIME is wrapping up the other program inside its command). Some are designed to run ecological algorithms about diversity. Some are designed to help visualize and make sense of these large datasets. We'll focus on the last two.
 
 
@@ -164,18 +167,20 @@ Remember that the "E" in QIIME stands for Ecology. We are looking at complex pop
 
 To answer #1, we will measure the _alpha diversity_ of a given sample. What is alpha diversity? Why is this potentially valuable information? What would typical ecological theory suggest about a healthy ecosystem? The alpha diversity command in Qiime contains a few arguments to make it run appropriately. If you run the help command, you can learn more about what each one denotes:
 ```
-alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 600 -n 20 -a -o 8
+alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_final/gg97.tre -m data_final/hmp_metadata_biol358.txt -e 570 -n 5 -a -O 4 --min_rare_depth 50
 ```
-This will take a while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females). Write out at least 3 hypotheses in a Word document.
+This will take a little while to run. In the meantime, generate a few hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females). Write out at least 3 hypotheses in a Word document.
 
 
 Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the subsampling, or the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
 
 
-The nice feature about alpha diversity is that it yields a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site diversity:
+The nice feature about alpha diversity is that it yields a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site Phylogenetic diversity (PD_whole_tree):
 ```
-compare_alpha_diversity.py -i alpha_rare/alpha_div_collated/**** -m data_final/hmp_metadata_biol358.txt -o alpha_comparison -c BodySite -p 'fdr'
+compare_alpha_diversity.py -i alpha_rare/alpha_div_collated/PD_whole_tree.txt -m data_final/hmp_metadata_biol358.txt -o alphatest_PD -c BodySite -p fdr
 ```
+
+Look at the plots and the stats results. Are there any significant differences? Repeat this for the other two alpha diversity metrics saved in the alpha_div_collated directory. What is the difference between these three? Qiime has many other metrics that can be specified as well.
 
 
 To answer #2, and any of your hypotheses surrounding the similarity between sites, we will measure the beta diversity of these samples. What is beta diversity? How does it compare to alpha diversity?
