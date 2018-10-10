@@ -55,7 +55,7 @@ echo "Hello, friends!"
 
 ---
 ### Download the raw data
-Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s),<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
+Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s)<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
 
 ---
 #### Raw sequencing data: the FASTQ
