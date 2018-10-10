@@ -55,7 +55,7 @@ echo "Hello, friends!"
 
 ---
 ### Download the raw data
-Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s). Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
+Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s),<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
 
 ---
 #### Raw sequencing data: the FASTQ
@@ -249,3 +249,5 @@ Now that you have the hang of these core analyses, you have the tools to test wh
 ## Clean up
 Because you are logged in with your username, you can leave all the data and installed files where they are. To exit the Qiime environment, you can type `source deactivate`. Or, you can just close the terminal. No harm done as long as it is not currently running a command. Log out and lower the computer back into the desk. Thank you!
 
+-----
+<sup>1</sup> HMP Consortium (2012) Structure, function and diversity of the healthy human microbiome. _Nature_ doi: 10.1038/nature11234
