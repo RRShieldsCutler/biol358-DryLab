@@ -165,7 +165,7 @@ The output data is in a format called BIOM, for "biological observation	matrix".
 
 ---
 ### Behold, QIIME
-Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 12,291 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA. We installed it earlier and it's still "active" in our terminal.
+Remember the final question last week? QIIME is one of the most used bioinformatics tools for studying microbiomes. [The paper introducing QIIME](http://www.nature.com/nmeth/journal/vaop/ncurrent/full/nmeth.f.303.html) has been cited 16,655 times as of this writing (that's a lot). They recently released version 2 (QIIME2), but it is a much steeper learning curve, and the core functions are identical to those in QIIME1. Therefore, we are using QIIME1 today. If you start doing this research in your future though, it is better to learn QIIME2 going forward (learning QIIME1 will still help ease that learning process). QIIME is a _much_ larger piece of software than SHI7 or NINJA. We installed it earlier and it's still "active" in our terminal.
 
 > Diving deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
 
@@ -250,7 +250,7 @@ Now that you have the hang of these core analyses, you have the tools to test wh
 
 
 ## Clean up
-Because you are logged in with your username, you can leave all the data and installed files where they are. To exit the Qiime environment, you can type `source deactivate`. Or, you can just close the terminal. No harm done as long as it is not currently running a command. Log out and lower the computer back into the desk. Thank you!
+Because you are logged in with your username, you can leave all the data and installed files where they are. To exit the Qiime environment, you can type `conda deactivate`. Or, you can just close the terminal. No harm done as long as it is not currently running a command (even then, it'll just stop the process, not kill the computer). Log out and lower the computer back into the desk. Thank you!
 
 -----
 <sup>1</sup> HMP Consortium (2012) Structure, function and diversity of the healthy human microbiome. _Nature_ doi: 10.1038/nature11234
