@@ -53,6 +53,11 @@ echo "Hello, friends!"
 # echo "Hello, friends!"
 ```
 
+Housekeeping need. Run the following command to keep your configuration from trying to break itself (software issue):
+```sh
+conda config --set auto_update_conda false
+```
+
 ---
 ### Download the raw data
 Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=13qLNc7PXX3GNeHS6sUVjyt-RAjezXUDw)<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
