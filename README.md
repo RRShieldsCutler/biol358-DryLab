@@ -5,10 +5,10 @@
 ---
 
 ## Getting started
-Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have probably never (or rarely) done. It is not as scary as it seems. At some point, you had never heard of, seen, or touched a pipet. Or a microscope. Maybe you have started to learn a second (or third) language. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all big computing servers that are necessary for "big data" work are *only* accessible through a command line!
+Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have never (or rarely) done. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past, like a micropipet. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all of the big data servers that are necessary for "big data" work are *only* accessible through a command line!
 
 
-You should keep some running notes in a notebook, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide. There is also a report sheet with several short questions to answer during/at the end of the activity. It can be found on Moodle in the lab section as the Microbiome Lab Assignment.
+You should keep some running notes in a notebook or Google/Word Doc, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide. There are a series of questions to complete for this lab, which should be included in your lab notebook (therefore, not "due" or graded until the end of the semester, as part of the lab notebook grade).
 
 
 We will only touch the surface of command line work today, because that's not the main objective of the lab. But you can practice any of these things on your own computers, and if this isn't new to you, please help your neighbors who may be learning this for the first time.
@@ -45,22 +45,16 @@ cd Doc[press tab]
 cd Documents
 ```
 
-Neat, huh?! I also used something just now called a *comment* character. The pound sign `#` tells the computer to _ignore anything that comes after it on that line_ while processing any commands. People use it to add explanations or notes to code, like I just did, or to temporarily "blind" the computer to a command or series of commands. Try the following commands:
-```sh
-echo "Hello, friends!"
-# the echo command makes the computer print out whatever you feed it within quotes, as above
-# now try the same echo command after a comment:
-# echo "Hello, friends!"
-```
+Neat, huh?!
 
-Housekeeping need. Run the following command to keep your configuration from trying to break itself (software issue):
+Quick housekeeping task. Run the following command to keep your configuration from trying to break itself (software issue):
 ```sh
 conda config --set auto_update_conda false
 ```
 
 ---
 ### Download the raw data
-Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=13qLNc7PXX3GNeHS6sUVjyt-RAjezXUDw)<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
+Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=13qLNc7PXX3GNeHS6sUVjyt-RAjezXUDw)<sup>1</sup>. Use the Finder to move this data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
 
 ---
 #### Raw sequencing data: the FASTQ
@@ -96,7 +90,7 @@ Now we need to install QIIME, the final software we will use. More on it later, 
 conda create -n qiime1 python=2.7 qiime matplotlib=1.4.3 mock nose -c bioconda
 # Say "y" when it prompts you.
 ```
-To activate the QIIME environment on the computer, enter the following command: `source activate qiime1`. You should now have a little `(qiime1)` indicator to the left of your active terminal line. 
+To activate the QIIME environment on the computer, enter the following command: `conda activate qiime1`. You should now have a little `(qiime1)` indicator at the left side of your active terminal line. 
 
 
 If you didn't find it before, that last line of the FASTQ is a code, similar to the ones [described here](https://www.drive5.com/usearch/manual/quality_score.html). How do you think we will use this information in the next step?
