@@ -1,7 +1,7 @@
-# BIOL358: Microbiology, Fall 2018
+# BIOL358: Microbiology, Fall 2019
 ## Introduction to Microbiome data lab
 ### [View as webpage](https://rrshieldscutler.github.io/biol358-Fall2018/)
-### October 2, 2018
+### October 3, 2019
 ---
 
 ## Getting started
@@ -55,7 +55,7 @@ echo "Hello, friends!"
 
 ---
 ### Download the raw data
-Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=1FKGfRYJI7raFQ6gX-7NOpmsohchBzq3s)<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
+Download the data we'll be playing with today from Google Drive [here](https://drive.google.com/open?id=13qLNc7PXX3GNeHS6sUVjyt-RAjezXUDw)<sup>1</sup>. Use the Finder to move the data directory (called "data_final") into the Documents directory on the computer. (There are ways to do all of this on the command line, but those lessons are for another time...)
 
 ---
 #### Raw sequencing data: the FASTQ
@@ -77,16 +77,14 @@ Ok, back to the data. So, if you've figured out what the fourth line indicates, 
 For the first step, we'll need to download an open-source bioinformatics "tool" (aka software). Almost all of the software used in academic research for microbiome work is open-source. What does this mean, beyond that it costs nothing to use? Hint: there are advantages and disadvantages.
 
 
-There are many ways to complete this task, but the software we'll be using is called **SHI7** and is pronounced "shi-ZEN". Like many open-source tools, it is hosted on the community site GitHub: <https://github.com/knights-lab/shi7>. Download the most recent MacOSX version by clicking on the "releases" link near the top of the page. Hold *control* and click on the shi7_0.9.9_mac_release.zip link: "save link as" or "download link as" into "Documents", where we are working. Using the finder, double-click to unzip, then delete the zip file. You should now have a directory called "shi7_0.9.9_mac_release", and inside of it a number of files and directories.
+There are many ways to complete this task, but the software we'll be using is called **SHI7** and is pronounced "shi-ZEN", another open-source tool. It is hosted on the community site GitHub: <https://github.com/knights-lab/shi7>. Download it [here](https://drive.google.com/file/d/11in6Mr3ddBPcjmuoEAZnh-M2jqfm4mRd/view?usp=sharing). Right click (control-click), and choose Download to put it in your Downloads folder, where it should automatically extract the .zip file.
 
 
-To make it something the computer can run, enter this command:
+To make it something the computer can run, enter these commands in order:
 ```
-echo "PATH=$PWD/shi7_0.9.9_mac_release:$PATH" >> ~/.bash_profile
+echo "PATH=~/Downloads/shi7_0:$PATH" >> ~/.bash_profile
+source ~/.bash_profile
 ```
-
-Close and reopen your terminal to make the change stick, then `cd` into Documents again.
-
 
 Now we need to install QIIME, the final software we will use. More on it later, but we will install it now:
 ```sh
@@ -143,16 +141,22 @@ Great work! You have just run quality control on next generation sequencing data
 We now find ourselves at a similar point as we were at the beginning of last week's lab. We have DNA sequences (16S rDNA again), and we want to know _who_ is there. But now we have some problems: shorter sequences, and an unknown number of species per sample (whereas last week we had lab colony-purified isolates!). What do we need? You guessed. More open-source bioinformatics software. Again, there are many many options, and there are even many approaches and theory for completing this step. We're going to use one called **NINJA-OPS**, partly because it has a cool name, but also because it can actually run on this iMac or your laptop. It doesn't do as much as some of the other software tools, but most of those only run on big computing servers.
 
 
-Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing), and put the folder into the same place as the data_final and SHI7 (Documents, unless you moved). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Read the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
+Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Read the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
+
+Again, use these commands to make it something the computer can recognize:
+```sh
+echo "PATH=~/Downloads/NINJA-OPS:$PATH" >> ~/.bash_profile
+source ~/.bash_profile
+```
 
 
 NINJA-OPS actually stands for "Ninja Is Not Just Another OTU-picking Solution". Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
 ```sh
-python NINJA-OPS/bin/ninja.py -h
+bin/ninja.py -h
 ```
 To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where to put the results (`-o`), and then any other modifications to the defaults that we need. Here, we are just going to use the flag `-z` to tell it to search against both strands of the DNA in the database, and `-d 2` to tell it to ignore any sequences that just occur once, since that's probably just noise or background error in the sequences (a species that only shows up once in the entire dataset won't have enough statistics to mean anything, regardless).
 ```sh
-python NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
+bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
 When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 2`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
 
@@ -172,7 +176,7 @@ QIIME contains many commands. Some will run other programs on your data (this is
 Ok! Are you ready to visualize your data?
 
 
-First, let's see what NINJA did with our FASTA sequences. This command will convert that BIOM format into a table that you can open with Excel:
+First, let's see what NINJA did with our FASTA sequences. This command will convert that BIOM format into a table that you can open with Excel. Make sure you still have the `(qiime1)` text at the beginning of your command line.
 ```sh
 biom convert -i ninja_results/ninja_otutable.biom -o ninja_otu_table.txt --to-tsv
 ```
