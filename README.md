@@ -8,7 +8,7 @@
 Today we will be exploring next-generation sequencing data from the human microbiome. The tools we are using will probably be unfamiliar. We will be using the computer's `terminal` or command-line interface, which many of you have never (or rarely) done. Using the command line is just another skill, and through practice and experience, you can learn to use this tool just as you have learned to use others in the past, like a micropipet. And, just like learning to pipet, this skill opens up a whole world of experiments, research, and understanding about how we ask questions about biology in today's research. For example, almost all of the big data servers that are necessary for "big data" work are *only* accessible through a command line!
 
 
-You should keep some running notes in a notebook or Google/Word Doc, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide. There are a series of questions to complete for this lab, which should be included in your lab notebook (therefore, not "due" or graded until the end of the semester, as part of the lab notebook grade).
+You should keep some running notes in a notebook or Google/Word Doc, in particular quick answers and notes about the questions posed in this lab exercise. This will be helpful material as we explore the microbiome topic in the course, and as a reference and study guide. There are a series of questions to complete for this lab, which should be included in your lab notebook (therefore, not "due" or graded until the end of the semester as part of the lab notebook grade).
 
 
 We will only touch the surface of command line work today, because that's not the main objective of the lab. But you can practice any of these things on your own computers, and if this isn't new to you, please help your neighbors who may be learning this for the first time.
@@ -16,20 +16,20 @@ We will only touch the surface of command line work today, because that's not th
 
 To begin, open the Application called `terminal`. It will launch a command-line window, which will be our virtual "laboratory" for the day.
 
-When you are working on the command line, you are always working "inside" a folder (called "directories" by most computer scientists) or location on the hard drive. By default, you start out in your "Home" directory. Open a new Finder window, and navigate to your Home folder. Note what folders/files are in there. Now, go to the terminal and type the following command, then press Return:
+When you are working on the command line, you are always working "inside" a folder (called "directories" by most computer scientists, and here going forward) on the hard drive. By default, you start out in your "Home" user's directory. Open a new Finder window, and navigate to your Home folder. Note what folders/files are in there. Now, go to the terminal and type the following command, then press Return:
 ```sh
 ls -l
 ```
 When typing commands on the terminal, if you make a mistake it will usually cause an error; but, *there is no undo on the command line*, so you also want to be careful when typing. That said, I want you to type the commands, not copy and paste, because you will learn better by doing.
 
 
-In the above example, the *command* was `ls` which tells the computer to list the contents of your current location. We also added an *argument*, `-l`, which modifies or provides additional instruction to the command. Note that arguments are separated from the command by a *single* space (first hint why spaces in file names and folders can cause problems on the command line!). In this case, the argument `-l` tells the list command to output the "long format" with additional details about the contents. Try running it without the argument.
+In the above example, the *command* was `ls` which tells the computer to list the contents of your current location. We also added a *flag* or *option*, `-l`, which modifies or provides additional instruction to the command. Note that flags are separated from the command by a *single* space (first hint why spaces in file names and folders can cause problems on the command line!). In this case, the flag `-l` tells the list command to output the "long format" with additional details about the contents. Try running it without the flag.
 ```sh
 ls
 ```
 
-Nice. Sometimes the bit with the hyphen and letter, e.g. `-l`, is called a "flag".
-> Diving Deeper: To access the "user manual" for any built-in command, type `man [command]` e.g. `man ls`.
+Nice. Sometimes the words argument, flag, and option are used interchangably.
+> To access the "user manual" for any built-in command, type `man [command]` e.g. `man ls`.
 
 Most commands act on a directory or file. The directory/file can be specified by including it after the argument, again separated by a single space:
 ```sh
