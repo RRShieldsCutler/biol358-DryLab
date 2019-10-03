@@ -1,6 +1,6 @@
 # BIOL358: Microbiology, Fall 2019
 ## Introduction to Microbiome data lab
-### [View as webpage](https://rrshieldscutler.github.io/biol358-Fall2018/)
+### [View as webpage](https://rrshieldscutler.github.io/biol358-DryLab/)
 ### October 3, 2019
 ---
 
