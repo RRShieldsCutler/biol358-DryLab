@@ -81,7 +81,7 @@ There are many ways to complete this task, but the software we'll be using is ca
 
 To make it something the computer can run, enter these commands in order:
 ```
-echo "PATH=~/Downloads/shi7_0:$PATH" >> ~/.bash_profile
+echo "PATH=~/Downloads/shi7_0.9.9_mac_release:$PATH" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
