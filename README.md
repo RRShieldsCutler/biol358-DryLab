@@ -150,7 +150,7 @@ bin/ninja.py -h
 ```
 To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where to put the results (`-o`), and then any other modifications to the defaults that we need. Here, we are just going to use the flag `-z` to tell it to search against both strands of the DNA in the database, and `-d 2` to tell it to ignore any sequences that just occur once, since that's probably just noise or background error in the sequences (a species that only shows up once in the entire dataset won't have enough statistics to mean anything, regardless).
 ```sh
-bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
+python ~/Downloads/NINJA-OPS/bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
 When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 2`. Change the name of the results output (like `ninja_results_2`) and run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
 
