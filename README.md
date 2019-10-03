@@ -137,16 +137,11 @@ We now find ourselves at a similar point as we were at the beginning of last wee
 
 Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Check out the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
 
-Again, use these commands to make it something the computer can recognize:
-```sh
-echo "PATH=~/Downloads/NINJA-OPS:$PATH" >> ~/.bash_profile
-source ~/.bash_profile
-```
-
+Make sure the NINJA-OPS folder is extracted (from .zip) and in the Downloads folder, like the shi7 folder.
 
 NINJA-OPS is a self-referencing acronym that stands for "Ninja Is Not Just Another OTU-picking Solution". Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
 ```sh
-bin/ninja.py -h
+python ~/Downloads/NINJA-OPS/bin/ninja.py -h
 ```
 To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where to put the results (`-o`), and then any other modifications to the defaults that we need. Here, we are just going to use the flag `-z` to tell it to search against both strands of the DNA in the database, and `-d 2` to tell it to ignore any sequences that just occur once, since that's probably just noise or background error in the sequences (a species that only shows up once in the entire dataset won't have enough statistics to mean anything, regardless).
 ```sh
