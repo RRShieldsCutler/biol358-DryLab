@@ -66,7 +66,7 @@ head data_final/SRR040913.fastq
 The first line is the identifying information. The second line is the raw sequence, often called a "read". The third line is a spacer that precedes the fourth line. What is the fourth line of a FASTQ file from next-gen sequencing? Hint: use the internet.
 
 
-*Let's also just take a second here. What you are viewing on your screen is the human microbiome. This is the microscope slide of computational microbiologists. Everything that you read about the microbiome, all the research, news stories, medical implications, and the explosion in our understanding of microbial diversity in and on our bodies (and other environments)........ all starts with a few hundred gigabytes of these four lines, produced by an expensive instrument in a windowless room* (ok, I'm sure some have windows).
+*What you are viewing on your screen is the human microbiome. This is the microscope slide equivalent for computational microbiologists. Everything that you read about the microbiome, all the research, news stories, medical implications, and the explosion in our understanding of microbial diversity in and on our bodies (and other environments)........ all starts with a few hundred gigabytes of these four lines, produced by an expensive instrument in a windowless room* (ok, I'm sure some have windows).
 
 
 Ok, back to the data. So, if you've figured out what the fourth line indicates, and knowing that this is totally raw data, can you predict what the first thing we have to do is?... 
@@ -102,9 +102,9 @@ You got it! Like a chef preparing some homegrown organic produce, you sometimes 
 ```sh
 shi7.py -h
 ```
-Let's unpack that. Like many bioinformatics tools, the software is written in the programming language Python (which you might remember if you've taken the intro CS course here). Also helpful to note how directories are structured on the command line. The forward slash `/` separates directories on the command line. For example: 
+Let's unpack that. Like many bioinformatics tools, the software is written in the programming language Python (which you might remember if you've taken the intro CS course here). Also helpful to note how directories are structured on the command line. The forward slash `/` separates directories (aka Folders) on the command line. For example: 
 ```sh
-Desktop/My_Homework_Folder/Microbiology_folder/This_Class_Rocks.docx
+# Desktop/My_Homework_Folder/Microbiology_folder/This_Class_Rocks.docx
 ```
 
 ---
@@ -119,28 +119,23 @@ shi7.py -i data_final -o shi7_result_default -SE
 Take a look at the resulting output file. Remember the `head` command? Use it to peek at the output file, which should be located at this file location: `shi7_result_default/combined_seqs.fna`. What does this look like? What format is this? What's different about this and the FASTQ?
 
 
-Next, sometimes it's useful to know how many reads (aka DNA sequences--in this case, individual 16S sequences) are in the output file. The simplest way to do this is to count the number of lines in the output file -- then divide by _what number_? (Defined by the structure of the FASTA file). Google how to count the number of lines in a text file. When you have a command, check with me.
+Next, sometimes it's useful to know how many reads (aka DNA sequences--in this case, individual 16S sequences) are in the output file. The simplest way to do this is to count the number of lines in the output file -- then divide by _what number_? (Defined by the structure of the FASTA file). The command `wc` is "word count", and we then tell it to count 'lines' using the `-l` flag:
 
+```sh
+wc -l shi7_result_default/combined_seqs.fna
+```
 
-So, how many reads are in your file? Every read/sequence could be a different bacteria in theory, so you see why our approach from last week is no longer feasible for these studies! And this is just a subset of a larger study...
-
-
-Take another look at the shi7 help screen and see if you can determine what argument you could add to the shi7.py command above to change the quality threshold while trimming back the ends of the reads. The scale is 0-42 (low to high quality). What's the default? Remember to add a single space around the argument "flag" (the part starting with a hyphen) to separate it from the previous arguments and the number that you choose for a new quality threshold. Try a range higher and lower than the default, then count the number of sequences in the resulting file. 
-
-**NOTE:** you also need to change the output directory name from `shi7_result_default` to something else, perhaps `shi7_result_X` where `X` is the new score you've picked. That way you can compare results; otherwise it will overwrite your old results.
-
-
-What happens to the number of sequences when you change the quality threshold? What effect do you think this has on the downstream analysis?
+So, how many reads (aka sequences) are in your file? Every read/sequence could be a different bacteria in theory, so you see why our approach from last week is no longer feasible for these studies! And this is just a subset of a larger study...
 
 
 Great work! You have just run quality control on next generation sequencing data from the human microbiome.
 
 ---
 ### Assigning names to those sequences
-We now find ourselves at a similar point as we were at the beginning of last week's lab. We have DNA sequences (16S rDNA again), and we want to know _who_ is there. But now we have some problems: shorter sequences, and an unknown number of species per sample (whereas last week we had lab colony-purified isolates!). What do we need? You guessed. More open-source bioinformatics software. Again, there are many many options, and there are even many approaches and theory for completing this step. We're going to use one called **NINJA-OPS**, partly because it has a cool name, but also because it can actually run on this iMac or your laptop. It doesn't do as much as some of the other software tools, but most of those only run on big computing servers.
+We now find ourselves at a similar point as we were at the beginning of last week's lab. We have DNA sequences (16S rDNA again), and we want to know _who_ is there. But now we have some problems: shorter sequences, and an unknown number of species per sample (whereas last week we had lab colony-purified isolates!). What do we need? You guessed it. More open-source bioinformatics software. Again, there are many many options, and there are even many approaches and theory for completing this step. We're going to use one called **NINJA-OPS**, partly because it has a cool name, but also because it can actually run on this iMac or your laptop. It doesn't do as much as some of the other software tools, but most of those only run on big computing servers.
 
 
-Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Read the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
+Download the software using [this link](https://drive.google.com/drive/folders/1KmiitLbbWkRMGRRPKfogacOHhFLYmgaA?usp=sharing). NINJA-OPS comes with a database built from a large collection of 16S rRNA genes called [GreenGenes](http://greengenes.secondgenome.com/), which is one of the more commonly used databases for 16S microbiome studies. In short, the software uses some advanced algorithms, matrices, and efficient programming to match your sequences to their best match in the database. More accurately, it assigns each sequence to an OTU. [Check out the wikipedia article on OTUs](https://en.wikipedia.org/wiki/Operational_taxonomic_unit) for a decent introduction. So, at the end of this process you will have a table with "counts" or "hits" for each OTU in the database within each sample in our dataset (there are 30 separate microbiome samples in our dataset).
 
 Again, use these commands to make it something the computer can recognize:
 ```sh
@@ -149,7 +144,7 @@ source ~/.bash_profile
 ```
 
 
-NINJA-OPS actually stands for "Ninja Is Not Just Another OTU-picking Solution". Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
+NINJA-OPS is a self-referencing acronym that stands for "Ninja Is Not Just Another OTU-picking Solution". Let's see what options NINJA-OPS has. This is another program that's written (mostly) in Python:
 ```sh
 bin/ninja.py -h
 ```
@@ -157,7 +152,7 @@ To run NINJA-OPS, you have to tell it where to find your sequences (`-i`), where
 ```sh
 bin/ninja.py -i shi7_result_default/combined_seqs.fna -o ninja_results -z -d 2
 ```
-When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 2`. Run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
+When it's done, you can also see how much more efficient the computation is when you eliminate those super-rare sequences with `-d 2`. Change the name of the results output (like `ninja_results_2`) and run the command again without the `-d 2` on the end, and see how much longer it takes. Change the name of the results though, or you will overwrite your original data (if you forget, you can just run the first command over again).
 
 > Diving deeper: What is parallel computing? Can your iMac do this? How many "threads" does this Mac have?
 
@@ -169,19 +164,19 @@ Remember the final question last week? QIIME is one of the most used bioinformat
 
 > Diving deeper: Qiime has been installed in a Python virtual environment. What's that? What is "Anaconda"?
 
-QIIME contains many commands. Some will run other programs on your data (this is called a "wrapper", because QIIME is wrapping up the other program inside its command). Some are designed to run ecological algorithms about diversity. Some are designed to help visualize and make sense of these large datasets. We'll focus on the last two. You can type Qiime commands and use tab completion on Qiime commands without typing Python first.
+QIIME contains many commands. Some will run other programs on your data (this is called a "wrapper", because QIIME is wrapping up the other program with itself). Some are designed to run ecological algorithms about diversity. Some are designed to help visualize and make sense of these large datasets. You can type Qiime commands and use tab completion on Qiime commands.
 
 
 Ok! Are you ready to visualize your data?
 
 
-First, let's see what NINJA did with our FASTA sequences. This command will convert that BIOM format into a table that you can open with Excel. Make sure you still have the `(qiime1)` text at the beginning of your command line.
+First, let's see what NINJA did with our FASTA sequences. This command will convert that BIOM format into a table that you can open with Excel. Make sure you still have the `(qiime1)` text at the beginning of your command line, and that you are still located in the "Documents" directory.
 ```sh
 biom convert -i ninja_results/ninja_otutable.biom -o ninja_otu_table.txt --to-tsv
 ```
 
 
-Go to the Finder window, and you should see this new file, "ninja_otu_table.txt". Control click, go to "Open With" and choose Microsoft Excel. NINJA took all those sequences and found the entried in the database that best match the sequence (there's some deeper algorithm stuff going on, but that's the essence). Now you have a table with the microbiome samples as columns, and each row is an OTU (numeric code, no names yet). The numbers in the table are the _counts_ or _hits_ to that OTU in each sample. What do you notice about the table? Is it full of numbers? What does it mean about the communities in these people's samples?
+Go to the Finder window, and you should see this new file, "ninja_otu_table.txt". Control click, go to "Open With" and choose Microsoft Excel. NINJA took all those sequences and found the entry in the database that best match the sequence (there's some deeper algorithm stuff going on, but that's the essence). Now you have a table with the microbiome samples as columns, and each row is an OTU (numeric code, no names yet). The numbers in the table are the _counts_ or _hits_ to that OTU in each sample. What do you notice about the table? Is it totally full of big numbers? What does it mean about the communities in these people's samples?
 
 
 Ok, time for pictures. We can use Qiime to make stacked bar plots that show the relative abundance of all the organisms we could detect in these microbiome communities. The following command will take our output file from NINJA and generate several data outputs:
@@ -214,18 +209,18 @@ alpha_rarefaction.py -i ninja_results/ninja_otutable.biom -o alpha_rare -t data_
 This will take a little while to run. In the meantime, generate some hypotheses about the relative diversity of the three body sites here: stool, skin, and mouth. Which do you think is most diverse? Which sites are the most similar? Which is the most consistent across individuals? What about differences between males and females (each site is a mixture of males and females).
 
 
-Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the subsampling, or the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
+Once the alpha rarefaction is done, look at the results in the Finder. Open some of the plots. On the rarefaction plots, the x-axis is the number of randomly chosen sequences. What naturally happens to the diversity as you include more sequences (i.e. include more data points)? Explain this to your partner. Now, why is it important to sub-sample reads from samples with many more sequences to begin with?
 
 
-The nice feature about alpha diversity is that it yields a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site Phylogenetic diversity (PD_whole_tree):
+Alpha diversity analyses yield a single value for each sample. Therefore, we can compare them with typical statistical tests and ask whether one group is significantly more diverse, by a given metric of diversity. Qiime enables this with the command `compare_alpha_diversity.py`. It's a little finicky in what files it takes, so here is an example that would compare body site Phylogenetic diversity (PD_whole_tree):
 ```sh
 compare_alpha_diversity.py -i alpha_rare/alpha_div_collated/PD_whole_tree.txt -m data_final/hmp_metadata_biol358.txt -o alphatest_PD -c BodySite -p fdr
 ```
 
-Look at the plots and the stats results. Are there any significant differences? Repeat this for the other two alpha diversity metrics saved in the alpha_div_collated directory. What is the difference between these three? Qiime has many other metrics that can be specified as well.
+Look at the plots and the stats results. Are there any significant differences? Repeat this for the other two alpha diversity metrics saved in the alpha_div_collated directory. What is the difference between these three?
 
 
-To answer #2, and any of your hypotheses surrounding the similarity between sites, we will measure the beta diversity of these samples. What is beta diversity? How does it compare to alpha diversity?
+To answer #2 above, and any of your hypotheses surrounding the similarity between sites, we will measure the beta diversity of these samples. What is beta diversity? How does it compare to alpha diversity?
 
 
 The command to run beta diversity analyses on our data looks similar to the alpha diversity command, but takes much less time.
@@ -238,15 +233,11 @@ Open the results directory in the Finder window. You should see two types of mea
 Open the folders ending in "emperor_pcoa_plot" and open the `index.html` files in a web browser. What you are viewing now is a Principal Components Analysis (PCoA) plot of the beta diversity. You should read into what a PCoA is showing, but in essence: in 3D space, samples closer to one another are more similar by microbiome composition that those further apart. The algorithms determine the ecological distance from each sample to every other sample, which results in a big matrix of distances. The PCoA is a convenient way to visualize this dense information. Play around with the interactive viewer to help get the hang of this data presentation and to test your hypotheses. The "colors" tab will allow you to assign colors to the variables such as body site and individuals' sex. Write down your observations, especially with regard to your hypotheses. Beta diversity measures are a little harder to compare statistically, but I am happy to talk over some of these approaches with groups if you are curious.
 
 
-Save or take screen shots of the figures that help you test your hypotheses, or anything else you found interesting. Use these to answer the questions in the report document (Question 4). Upload this report to Moodle in the appropriate section before Friday.
+Save or take screen shots of the figures that help you test your hypotheses, or anything else you found interesting. Use these to answer the questions in the report document (Question 4). Include this in your lab notebook entry for today.
 
 
 ### Stepping back
-The analyses you've just performed make up the core techniques of any microbiome study. There are many directions from here, and variations on the diversity tests and/or ways of comparing or visualizing the results. But taxa summary plots and alpha and beta diversity comparisons are integral to the analysis in nearly every microbiome study. I hope also that by going through these steps you also appreciate the many stages where variability and the preferences of the researcher can affect the results. Quality filtering, choice of the database and OTU tool (GreenGenes and NINJA here, but there are many options), thresholds for including data in the diversity analyses, etc. The field is young and there are few "standard operating protocols" beyond what a particular lab does. Programs like Qiime try to make some elements standardized, but it has its limitations too.
-
-
-### If time remains:
-Now that you have the hang of these core analyses, you have the tools to test whether those changes we made in the quality filtering step above actually make a difference in the final biological interpretations. Go back through the NINJA and Qiime commands using one of the higher and one of the lower threshold SHI7 output results (for the higher threshold, make sure there are actually sequences -- if you set it too high, nothing will pass the filter cutoff...). Be careful to change your output names (so you don't overwrite previous data) and the input names (to make sure you are using the right data at each step). Compare the taxa summaries and beta diversity. What do you see? How much impact does the quality level have on the downstream results, as you have performed it? Take screen shots and add this analysis to your Word document report for an extra 3 points.
+The analyses you've just performed make up some of the core techniques of any microbiome study. There are many directions from here, and variations on the diversity tests and/or ways of comparing or visualizing the results. But taxa summary plots and alpha and beta diversity comparisons are integral to the analysis in nearly every microbiome study. I hope also that by going through these steps you also appreciate the many stages where variability and the preferences of the researcher can affect the results. Quality filtering, choice of the database and OTU tool (GreenGenes and NINJA here, but there are many options), thresholds for including data in the diversity analyses, etc. The field is young and there are few "standard operating protocols" beyond what a particular lab does. Programs like Qiime try to make some elements standardized, but it has its limitations too.
 
 
 ## Clean up
